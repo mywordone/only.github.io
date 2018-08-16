@@ -12,10 +12,10 @@
 */
 
 //后台首页登录
-Route::get('public/login', 'Admin\PublicController@login') -> name('login');
-Route::get('public/check', 'Admin\PublicController@check') -> name('check');
+Route::get('admin/public/login', 'Admin\PublicController@login') -> name('admin_login');
+Route::get('admin/public/check', 'Admin\PublicController@check') -> name('admin_check');
 
-Route::get(['prefix' => 'admin'], function (){
+Route::group(['prefix' => 'admin'], function (){
 
 
 
