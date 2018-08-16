@@ -17,5 +17,6 @@ class PublicController extends Controller
             'username' => 'required|max:25',
             'password' => 'required|max:25|min:6'
         ]);
+        return redirect();
     }
 }
