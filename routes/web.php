@@ -15,5 +15,11 @@
 //     return view('welcome');
 // });
 
+<<<<<<< HEAD
 
 Route::get('hello', 'HelloController@');
+=======
+Route::get('users', function() {
+    return "在水一方";
+});
+>>>>>>> c52454c537d07116f96b28c5338c0a9b9fffe4a3
