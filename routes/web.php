@@ -11,9 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//后台首页登录
+Route::get('public/login', 'Admin\PublicController@login') -> name('login');
+Route::get('public/check', 'Admin\PublicController@check') -> name('check');
+
+Route::get(['prefix' => 'admin'], function (){
+
+
+
 });
+
 
 
 
