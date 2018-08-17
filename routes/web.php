@@ -20,9 +20,9 @@ Route::get('admin/public/login', 'Admin\PublicController@login') -> name('admin_
 Route::get('admin/public/check', 'Admin\PublicController@check') -> name('admin_check');
 
 Route::group(['prefix' => 'admin'], function (){
-
-
-
+	Route::any('matchdata/import', 'admin\MatchDataController@import')->name('matchdata_import');
+	Route::get('matchdata/export', 'admin\MatchDataController@export')->name('template_export');
+	Route::get('matchdata/index', 'admin\MatchDataController@index')->name('matchdata_index');
 });
 
 

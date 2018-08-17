@@ -73,10 +73,16 @@
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
 		<dl id="menu-article">
-			<dt><i class="Hui-iconfont">&#xe616;</i> 资讯管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe616;</i> 比赛数据管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">资讯管理</a></li>
+					<li><a data-href="{{ route('matchdata_index') }}" data-title="比赛数据列表" href="javascript:void(0)">比赛数据列表</a></li>
+			</ul>
+				<ul>
+					<li><a data-href="" data-title="比赛数据添加" href="javascript:void(0)">比赛数据添加</a></li>
+			</ul>
+			<ul>
+					<li><a data-href="{{ route('matchdata_upload') }}" data-title="比赛数据批量上传" href="javascript:void(0)">比赛数据批量上传</a></li>
 			</ul>
 		</dd>
 	</dl>
