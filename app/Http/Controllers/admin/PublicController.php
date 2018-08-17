@@ -9,7 +9,7 @@ class PublicController extends Controller
 {
     //
     public function index(){
-        return view('admin.public.index');
+        return view('admin.public.login');
     }
 
     public function check(Request $request){
@@ -17,6 +17,14 @@ class PublicController extends Controller
             'username' => 'required|max:25',
             'password' => 'required|max:25|min:6'
         ]);
-        return redirect();
+
+        $data = $request->only();
+
+        if (Auth::attempt($data)){
+            return redirect( route('index_index') );
+        }else{
+
+        }
+
     }
 }
