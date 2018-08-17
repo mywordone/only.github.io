@@ -124,10 +124,11 @@
     <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
     <!-- 载入webuploader的js文件 -->
     {{--<script type="text/javascript" src="/admin/webuploader-0.1.5/webuploader.js"></script>--}}
+
     <script type="text/javascript">
     $(function() {
 
-        $('input[name=file]').change(function () {
+        $('input[type=file]').change(function () {
             var formData = new FormData();
             formData.append("file", document.getElementById("file"));
             $.ajax({

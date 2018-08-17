@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
@@ -14,7 +13,6 @@ class PlayerController extends Controller
     public function index()
     {
         $data = DB::table('user')->where('status','1')->get();
-//        dd($data);
         return view('admin.player.index',compact('data'));
     }
     //添加方法
@@ -27,22 +25,18 @@ class PlayerController extends Controller
             //get请求
             return view('admin.player.add');
         }
-
     }
     //删除方法
     public function del(Request $request)
     {
         //获取id
         $id = $request -> id;
-//        dd($id);
         $res = DB::table('user')->where('id',$id)->update(['status' => '2']);
 
         if($res){
             $response = ['err' => 0,'msg' => '删除成功'];
-//            echo '成功';
         }else{
             $response = ['err' => 1,'msg' => '删除失败'];
-//            echo '失败';
         }
         return response() -> json($response);
     }
@@ -53,9 +47,7 @@ class PlayerController extends Controller
         $id = $request -> id;
         if (Input::method() == 'POST'){
             //post
-            $data = Input::all();
-            dd($data);
-
+            $data = $request->file('file');
             DB::table('user')->insert($data);
         }else{
             //get请求
