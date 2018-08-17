@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('admin/index/index','admin\IndexController@index')->name('admin.index.index');
+Route::get('admin/index/welcome','admin\IndexController@welcome')->name('admin.index.welcome');
 
 
 
