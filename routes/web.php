@@ -23,7 +23,10 @@ Route::group(['prefix' => 'admin'],function (){
     Route::get('index/index','admin\IndexController@index')->name('index_index');
     Route::get('index/welcome','admin\IndexController@welcome')->name('index_welcome');
 
-    //
+    //运动员列表和添加
+    Route::get('player/index','Admin\PlayerController@index')->name('player_index');
+    Route::any('player/add','Admin\PlayerController@add')->name('player_add');
+
 });
 
 
