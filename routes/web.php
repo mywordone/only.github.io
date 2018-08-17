@@ -12,18 +12,20 @@
 */
 
 
-Route::get('admin/index/index','admin\IndexController@index')->name('admin.index.index');
-Route::get('admin/index/welcome','admin\IndexController@welcome')->name('admin.index.welcome');
 
-//后台首页登录
+
+//登录首页
 Route::get('admin/public/login', 'Admin\PublicController@login') -> name('admin_login');
-Route::get('admin/public/check', 'Admin\PublicController@check') -> name('admin_check');
+Route::post('admin/public/check', 'Admin\PublicController@check') -> name('admin_check');
 
-Route::group(['prefix' => 'admin'], function (){
+Route::group(['prefix' => 'admin'],function (){
+    //登录后台首页
+    Route::get('index/index','admin\IndexController@index')->name('index_index');
+    Route::get('index/welcome','admin\IndexController@welcome')->name('index_welcome');
 
-
-
+    //
 });
+
 
 
 
