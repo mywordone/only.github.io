@@ -49,16 +49,25 @@
 				<th width="100">操作</th>
 			</tr>
 		</thead>
+
 		<tbody>
-
+            @foreach($data as $v)
 			<tr class="text-c">
-				<td><input type="checkbox" value="" name=""></td>
-
+				<td><input type="checkbox" value="{{ $v -> id }}" name=""></td>
+                <td>{{ $v -> id }}</td>
+                <td>{{ $v -> user_name }}</td>
+                <td>{{ $v -> sex }}</td>
+                <td>{{ $v -> age }}</td>
+                <td>{{ $v -> state }}</td>
+                <td>{{ $v -> hand }}</td>
+                <td>{{ $v -> bat }}</td>
+                <td>{{ $v -> play }}</td>
+                <td><img src="{{ $v -> image }}" width="64"></td>
 				<td class="td-manage">
-                    <a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-                    <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                    <a title="编辑" href="javascript:;" onclick="player_update('编辑','{{ route('player_update') }}','{{ $v -> id }}','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="删除" href="javascript:;" onclick="player_del(this,{{ $v -> id }})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
-
+        @endforeach
 		</tbody>
 	</table>
 	</div>
@@ -89,72 +98,30 @@ $(function(){
 function player_add(title,url,w,h){
 	layer_show(title,url,w,h);
 }
-/*用户-查看*/
-function member_show(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-/*用户-停用*/
-function member_stop(obj,id){
-	layer.confirm('确认要停用吗？',function(index){
-		$.ajax({
-			type: 'POST',
-			url: '',
-			dataType: 'json',
-			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
-				$(obj).remove();
-				layer.msg('已停用!',{icon: 5,time:1000});
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});		
-	});
+
+/*用户-编辑*/
+function player_update(title,url,id,w,h){
+	layer_show(title,url + '?id=' + id,w,h);
 }
 
-/*用户-启用*/
-function member_start(obj,id){
-	layer.confirm('确认要启用吗？',function(index){
+/*用户-删除*/
+function player_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+	    // window.location="/admin/player/del?id="+id;
 		$.ajax({
-			type: 'POST',
-			url: '',
+			type: 'GET',
+			url: "{{ route('player_delete') }}",
 			dataType: 'json',
+            data:{id: id},
 			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-				$(obj).remove();
-				layer.msg('已启用!',{icon: 6,time:1000});
-			},
-			error:function(data) {
-				console.log(data.msg);
+			    if (data.err == 0){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }else {
+                    console.log(data.msg);
+                }
 			},
 		});
-	});
-}
-/*用户-编辑*/
-function member_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-/*密码-修改*/
-function change_password(title,url,id,w,h){
-	layer_show(title,url,w,h);	
-}
-/*用户-删除*/
-function member_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
-		$.ajax({
-			type: 'POST',
-			url: '',
-			dataType: 'json',
-			success: function(data){
-				$(obj).parents("tr").remove();
-				layer.msg('已删除!',{icon:1,time:1000});
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});		
 	});
 }
 </script> 

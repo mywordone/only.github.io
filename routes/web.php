@@ -25,13 +25,13 @@ Route::group(['prefix' => 'admin'], function (){
 	Route::get('index/index','admin\IndexController@index')->name('index_index');
     Route::get('index/welcome','admin\IndexController@welcome')->name('index_welcome');
 
-<<<<<<< HEAD
     //运动员列表和添加
     Route::get('player/index','Admin\PlayerController@index')->name('player_index');
     Route::any('player/add','Admin\PlayerController@add')->name('player_add');
+    Route::any('player/update','Admin\PlayerController@update')->name('player_update');
+    Route::any('upload','Admin\UploadController@upload')->name('upload');
+    Route::any('player/del','Admin\PlayerController@del')->name('player_delete');
 
-=======
->>>>>>> 2879b2f9b27d9c264ec87dca57f3466b3d6f592e
 });
 
 

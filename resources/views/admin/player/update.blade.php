@@ -37,18 +37,18 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="用户名" id="user_name" name="user_name">
+                    <input type="text" class="input-text" value="{{ $v -> user_name }}" placeholder="用户名" id="user_name" name="user_name">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
                 <div class="formControls col-xs-8 col-sm-9 skin-minimal">
                     <div class="radio-box">
-                        <input name="sex" type="radio" value="1" id="sex-1" checked>
+                        <input name="sex" type="radio" value="男" id="sex-1" @if($v -> sex == '男') checked="" @endif>
                         <label for="sex-1">男</label>
                     </div>
                     <div class="radio-box">
-                        <input type="radio" id="sex-2" value="2" name="sex">
+                        <input type="radio" id="sex-2" value="女" name="sex" @if($v -> sex == '女') checked="" @endif>
                         <label for="sex-2">女</label>
                     </div>
                 </div>
@@ -56,18 +56,18 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>年龄：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="年龄" id="age" name="age">
+                    <input type="text" class="input-text" value="{{ $v -> age }}" placeholder="年龄" id="age" name="age">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>执拍手：</label>
                 <div class="formControls col-xs-8 col-sm-9 skin-minimal">
                     <div class="radio-box">
-                        <input name="hand" type="radio" value="1" id="hand-1" checked>
+                        <input name="hand" type="radio" value="1" id="hand-1" @if($v -> hand == '左手') checked="" @endif>
                         <label for="hand-1">左手</label>
                     </div>
                     <div class="radio-box">
-                        <input type="radio" id="hand-2" value="2" name="hand">
+                        <input type="radio" id="hand-2" value="2" name="hand" @if($v -> hand == '右手') checked="" @endif>
                         <label for="hand-2">右手</label>
                     </div>
                 </div>
@@ -75,31 +75,19 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>直横拍：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="直横拍" id="bat" name="bat">
+                    <input type="text" class="input-text" value="{{ $v->bat }}" placeholder="直横拍" id="bat" name="bat">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>打法：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="打法" id="play" name="play">
+                    <input type="text" class="input-text" value="{{ $v->play }}" placeholder="打法" id="play" name="play">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>国籍：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="国籍" id="state" name="state">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">照片：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <div id="uploader-demo">
-                        <!--用来存放item-->
-                        <div id="fileList" class="uploader-list"></div>
-                        <input type="file" class="file-item" name="file" value="选择图片">
-                        <!-- 隐藏域用于存放头像地址 -->
-                        <input type="hidden" name="image" id="image" value=""/>
-                    </div>
+                    <input type="text" class="input-text" value="{{ $v->state }}" placeholder="国籍" id="state" name="state">
                 </div>
             </div>
             <!-- csrf -->
@@ -126,38 +114,6 @@
     {{--<script type="text/javascript" src="/admin/webuploader-0.1.5/webuploader.js"></script>--}}
     <script type="text/javascript">
     $(function() {
-
-        $('input[name=file]').change(function () {
-            var formData = new FormData();
-            formData.append("file", document.getElementById("file"));
-            $.ajax({
-                url: "{{ route('upload') }}",
-                type: "POST",
-                data: formData,
-                /**
-                 *必须false才会自动加上正确的Content-Type
-                 */
-                contentType: false,
-                /**
-                 * 必须false才会避开jQuery对 formdata 的默认处理
-                 * XMLHttpRequest会对 formdata 进行正确的处理
-                 */
-                processData: false,
-                success: function (data) {
-
-                    if (data.code == "0") {
-                        alert("上传成功！");
-                    }
-                    if (data.code == "1") {
-                        alert(data.msg);
-                    }
-                },
-                error: function () {
-                    alert("上传失败！");
-                }
-            });
-        });
-
         $("#form-member-add").validate({
             onkeyup: false,
             focusCleanup: true,
@@ -165,7 +121,7 @@
             submitHandler: function(form) {
                 $(form).ajaxSubmit({
 					type: 'post',
-					url: "" ,	//提交给当前地址
+					url: "",	//提交给当前地址
 					success: function(data){
 						//判断返回值code
 						if(data.code == '0'){

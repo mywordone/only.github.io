@@ -82,7 +82,7 @@
 					<li><a data-href="" data-title="比赛数据添加" href="javascript:void(0)">比赛数据添加</a></li>
 			</ul>
 			<ul>
-					<li><a data-href="{{ route('matchdata_upload') }}" data-title="比赛数据批量上传" href="javascript:void(0)">比赛数据批量上传</a></li>
+					<li><a data-href="" data-title="比赛数据批量上传" href="javascript:void(0)">比赛数据批量上传</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -117,7 +117,7 @@
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 运动员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="{{ route('player_index') }}" data-title="运动员列表" href="javascript:;">会员列表</a></li>
+					<li><a data-href="{{ route('player_index') }}" data-title="运动员列表" href="javascript:;">运动员列表</a></li>
 					<li><a data-href="" data-title="删除运动员" href="javascript:;">删除的会员</a></li>
 			</ul>
 		</dd>
