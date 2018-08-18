@@ -16,8 +16,8 @@ class PublicController extends Controller
     public function check(Request $request){
         //自动验证
         $this->validate($request,[
-            'name' => 'required|max:20',
-            'pwd' => 'required|max:25|min:6'
+            'admin' => 'required|max:20',
+            'password' => 'required|max:25|min:6'
         ]);
 
         $data = $request->only(['admin','password']);

@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/css/style.css" />
     <!-- 载入webupload.css文件 -->
-    {{--<link rel="stylesheet" type="text/css" href="/admin/webuploader-0.1.5/webuploader.css">--}}
+    <link rel="stylesheet" type="text/css" href="/admin/webuploader-0.1.5/webuploader.css">
     <!--[if IE 6]>
 <script type="text/javascript" src="/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -33,7 +33,7 @@
 
 <body>
     <article class="page-container">
-        <form action="" method="post" class="form form-horizontal" id="form-member-add" enctype="multipart/form-data">
+        <form action="" method="post" class="form form-horizontal" id="form-member-add">
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
                 <div class="formControls col-xs-8 col-sm-9">
@@ -67,8 +67,8 @@
                         <label for="hand-1">左手</label>
                     </div>
                     <div class="radio-box">
-                        <input type="radio" id="hand-2" value="2" name="hand">
-                        <label for="hand-2">右手</label>
+                        <input type="radio" id="gender-2" value="2" name="hand">
+                        <label for="hand">右手</label>
                     </div>
                 </div>
             </div>
@@ -96,9 +96,9 @@
                     <div id="uploader-demo">
                         <!--用来存放item-->
                         <div id="fileList" class="uploader-list"></div>
-                        <input type="file" class="file-item" name="file" value="选择图片">
+                        <input type="button" class="btn btn-primary radius" value="选择图片">
                         <!-- 隐藏域用于存放头像地址 -->
-                        <input type="hidden" name="image" id="image" value=""/>
+                        <input type="hidden" name="avatar" id="avatar" value=""/>
                     </div>
                 </div>
             </div>
@@ -123,42 +123,9 @@
     <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
     <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
     <!-- 载入webuploader的js文件 -->
-    {{--<script type="text/javascript" src="/admin/webuploader-0.1.5/webuploader.js"></script>--}}
-
+    <script type="text/javascript" src="/admin/webuploader-0.1.5/webuploader.js"></script>
     <script type="text/javascript">
     $(function() {
-
-        $('input[type=file]').change(function () {
-            var formData = new FormData();
-            formData.append("file", document.getElementById("file"));
-            $.ajax({
-                url: "{{ route('upload') }}",
-                type: "POST",
-                data: formData,
-                /**
-                 *必须false才会自动加上正确的Content-Type
-                 */
-                contentType: false,
-                /**
-                 * 必须false才会避开jQuery对 formdata 的默认处理
-                 * XMLHttpRequest会对 formdata 进行正确的处理
-                 */
-                processData: false,
-                success: function (data) {
-
-                    if (data.code == "0") {
-                        alert("上传成功！");
-                    }
-                    if (data.code == "1") {
-                        alert(data.msg);
-                    }
-                },
-                error: function () {
-                    alert("上传失败！");
-                }
-            });
-        });
-
         $("#form-member-add").validate({
             onkeyup: false,
             focusCleanup: true,

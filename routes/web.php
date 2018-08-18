@@ -16,7 +16,7 @@
 
 //后台首页登录
 Route::get('admin/public/login', 'Admin\PublicController@login') -> name('admin_login');
-Route::get('admin/public/check', 'Admin\PublicController@check') -> name('admin_check');
+Route::any('admin/public/check', 'Admin\PublicController@check') -> name('admin_check');
 
 Route::group(['prefix' => 'admin'], function (){
 	Route::any('matchdata/import', 'admin\MatchDataController@import')->name('matchdata_import');
