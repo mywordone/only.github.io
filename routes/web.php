@@ -33,10 +33,10 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('player/del','Admin\PlayerController@del')->name('player_delete');
 
     //比赛信息列表
-    Route::get('massage/index', 'Admin\MassageController@index')->name('massage_age');
-    Route::get('massage/del', 'Admin\MassageController@del')->name('massage_del');
-    Route::get('massage/add', 'Admin\MassageController@add')->name('massage_add');
-    Route::get('massage/update', 'Admin\MassageController@update')->name('massage_update');
+    Route::get('message/index', 'Admin\MessageController@index')->name('message_index');
+    Route::get('message/del', 'Admin\MessageController@del')->name('message_del');
+    Route::any('message/add', 'Admin\MessageController@add')->name('message_add');
+    Route::any('message/update', 'Admin\MessageController@update')->name('message_update');
 });
 
 

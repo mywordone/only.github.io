@@ -15,7 +15,7 @@ class PlayerController extends Controller
         $data = DB::table('user')->where('status','1')->get();
         return view('admin.player.index',compact('data'));
     }
-    //添加头像方法
+    //异步上传头像方法
     public function upload(Request $request)
     {
         if($request->file('file')->isValid() && $request->hasFile('file')){
@@ -78,8 +78,6 @@ class PlayerController extends Controller
         $id = $request -> id;
         if ($request->method() == 'POST'){
             //post
-            // $data = $request->file('file');
-            // DB::table('user')->insert($data);
             $res = $request->all();
             unset($res['file']);
             unset($res['_token']);

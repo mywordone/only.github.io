@@ -22,7 +22,7 @@
 <title>用户管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c"> 日期范围：
 		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;">
@@ -31,43 +31,50 @@
 		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="">
 		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="player_add('添加用户','{{ route('player_add') }}','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l">
+            <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+            <a href="javascript:;" onclick="member_add('添加用户','','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a>
+        </span>
+        <span class="r">共有数据：<strong>88</strong> 条</span>
+    </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="80">ID</th>
-				<th width="100">姓名</th>
-				<th width="100">性别</th>
-				<th width="40">年龄</th>
-				<th width="90">国籍</th>
-				<th width="150">执拍手</th>
-				<th width="130">直横拍</th>
-				<th width="70">打法</th>
-				<th width="70">照片</th>
-				<th width="100">操作</th>
+				<th width="100">比赛名称</th>
+				<th width="100">比赛日期</th>
+				<th width="40">比赛时间</th>
+				<th width="90">比赛阶段</th>
+				<th width="150">运动员A</th>
+				<th width="130">运动员B</th>
+				<th width="70">比赛项目</th>
+				<th width="70">比赛国家</th>
+				<th width="100">比赛城市</th>
+				<th width="100">比赛城市</th>
 			</tr>
 		</thead>
-
 		<tbody>
-            @foreach($data as $v)
+			@foreach($data as $val)
 			<tr class="text-c">
-				<td><input type="checkbox" value="{{ $v -> id }}" name=""></td>
-                <td>{{ $v -> id }}</td>
-                <td>{{ $v -> user_name }}</td>
-                <td>{{ $v -> sex }}</td>
-                <td>{{ $v -> age }}</td>
-                <td>{{ $v -> state }}</td>
-                <td>{{ $v -> hand }}</td>
-                <td>{{ $v -> bat }}</td>
-                <td>{{ $v -> play }}</td>
-                <td><img src="{{ $v -> image }}" width="64"></td>
+				<td><input type="checkbox" value="{{$val -> id}}" name=""></td>
+				<td>{{$val -> id}}</td>
+				<td>{{$val -> game_name}}</td>
+				<td>{{$val -> game_date}}</td>
+				<td>{{$val -> game_time}}</td>
+				<td>{{$val -> game_stage}}</td>
+				<td>{{$val -> aname}}</td>
+				<td>{{$val -> bname}}</td>
+				<td>{{$val -> game_project}}</td>
+				<td>{{$val -> state}}</td>
+				<td>{{$val -> city}}</td>
 				<td class="td-manage">
-                    <a title="编辑" href="javascript:;" onclick="player_update('编辑','{{ route('player_update') }}','{{ $v -> id }}','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-                    <a title="删除" href="javascript:;" onclick="player_del(this,{{ $v -> id }})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                    <a title="编辑" href="javascript:;" onclick="message_update('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="删除" href="javascript:;" onclick="message_del(this,'{{ $val -> id }}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
-        @endforeach
+			@endforeach
 		</tbody>
 	</table>
 	</div>
@@ -95,33 +102,32 @@ $(function(){
 	
 });
 /*用户-添加*/
-function player_add(title,url,w,h){
+function message_add(title,url,w,h){
 	layer_show(title,url,w,h);
 }
 
 /*用户-编辑*/
-function player_update(title,url,id,w,h){
-	layer_show(title,url + '?id=' + id,w,h);
+function message_update(title,url,id,w,h){
+	layer_show(title,url+ '?id=' +id,w,h);
 }
 
 /*用户-删除*/
-function player_del(obj,id){
+function message_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
-	    // window.location="/admin/player/del?id="+id;
 		$.ajax({
-			type: 'GET',
-			url: "{{ route('player_delete') }}",
+			type: 'get',
+			url: '{{ route('message_del') }}',
             data:{id:id},
-            dataType: 'json',
+			dataType: 'json',
 			success: function(data){
-			    if (data.err == 0){
+			    if (data.code == '0'){
                     $(obj).parents("tr").remove();
                     layer.msg('已删除!',{icon:1,time:1000});
                 }else {
-                    console.log(data.msg);
+			        console.log(data.msg);
                 }
 			},
-		});
+		});		
 	});
 }
 </script> 
