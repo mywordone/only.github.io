@@ -48,7 +48,8 @@ class MessageController extends Controller
             return response()->json($response);
         }else{
             //get请求
-            return view('admin.message.add');
+            $data = DB::table('user')->select('user_name')->get();
+            return view('admin.message.add',compact('data'));
         }
     }
 

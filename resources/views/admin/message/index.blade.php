@@ -22,19 +22,11 @@
 <title>用户管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
-<div class="page-container">
-	<div class="text-c"> 日期范围：
-		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;">
-		-
-		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
-	</div>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 比赛中心 <span class="c-gray en">&gt;</span> 比赛管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
             <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
-            <a href="javascript:;" onclick="member_add('添加用户','','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a>
+            <a href="javascript:;" onclick="message_add('添加用户','{{ route('message_add') }}','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加比赛信息</a>
         </span>
         <span class="r">共有数据：<strong>88</strong> 条</span>
     </div>
@@ -46,14 +38,14 @@
 				<th width="80">ID</th>
 				<th width="100">比赛名称</th>
 				<th width="100">比赛日期</th>
-				<th width="40">比赛时间</th>
+				<th width="70">比赛时间</th>
 				<th width="90">比赛阶段</th>
-				<th width="150">运动员A</th>
-				<th width="130">运动员B</th>
+				<th width="50">运动员A</th>
+				<th width="50">运动员B</th>
 				<th width="70">比赛项目</th>
 				<th width="70">比赛国家</th>
-				<th width="100">比赛城市</th>
-				<th width="100">比赛城市</th>
+				<th width="70">比赛城市</th>
+				<th width="70">操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -71,7 +63,7 @@
 				<td>{{$val -> state}}</td>
 				<td>{{$val -> city}}</td>
 				<td class="td-manage">
-                    <a title="编辑" href="javascript:;" onclick="message_update('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="编辑" href="javascript:;" onclick="message_update('编辑','{{ route('message_update') }}','{{$val -> id}}','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
                     <a title="删除" href="javascript:;" onclick="message_del(this,'{{ $val -> id }}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 			@endforeach

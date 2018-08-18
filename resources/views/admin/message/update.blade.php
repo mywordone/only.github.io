@@ -37,25 +37,25 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="比赛名称" id="game_name" name="game_name">
+                    <input type="text" class="input-text" value="{{ $v->game_name }}" placeholder="比赛名称" id="game_name" name="game_name">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>比赛日期：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="date" class="input-text" value="" placeholder="比赛日期" id="game_date" name="game_date">
+                    <input type="date" class="input-text" value="{{ $v->game_date }}" placeholder="比赛日期" id="game_date" name="game_date">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>比赛时间：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="time" class="input-text" value="" placeholder="比赛时间" id="game_time" name="game_time">
+                    <input type="time" class="input-text" value="{{ $v->game_time }}" placeholder="比赛时间" id="game_time" name="game_time">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>比赛阶段：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" name="game_stage" id="game_stage">
+                    <input type="text" class="input-text" value="{{ $v->game_stage }}" name="game_stage" id="game_stage">
                 </div>
             </div>
             <div class="row cl">
@@ -65,7 +65,7 @@
 						<select class="select" size="1" name="country_id">
 							<option value="" selected>--运动员A--</option>
 
-                                <option value=""></option>
+                            <option value="{{ $v->game_stage }}"></option>
 
 						</select>
 					</span>
@@ -73,7 +73,7 @@
 						<select class="select" size="1" name="province_id">
 							<option value="" selected>--运动员B--</option>
                             <!-- 数据追加的位置 -->
-
+                            <option value="{{ $v->game_stage }}"></option>
 						</select>
 					</span>
                 </div>
@@ -81,19 +81,19 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>比赛项目：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" name="game_project" id="game_project">
+                    <input type="text" class="input-text" value="{{ $v->game_project }}" name="game_project" id="game_project">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>比赛国家：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" name="state" id="state">
+                    <input type="text" class="input-text" value="{{ $v->state }}" name="state" id="state">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>比赛城市：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" name="city" id="city">
+                    <input type="text" class="input-text" value="{{ $v->city }}" name="city" id="city">
                 </div>
             </div>
             <input type="hidden" name="add_time" value="{{date('Y-m-d H:i:s')}}">
