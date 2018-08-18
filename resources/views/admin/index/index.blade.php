@@ -118,7 +118,6 @@
 			<dd>
 				<ul>
 					<li><a data-href="{{ route('player_index') }}" data-title="运动员列表" href="javascript:;">运动员列表</a></li>
-					<li><a data-href="" data-title="删除运动员" href="javascript:;">删除的会员</a></li>
 			</ul>
 		</dd>
 	</dl>
