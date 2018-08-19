@@ -42,25 +42,6 @@
 				</span>
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3" style="text-align: left;width: 100px;">运动员</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-				<select class="select" name="playername" size="1" id="player">
-					<option value="0">请选择运动员</option>
-					@foreach($matchinfos as $key => $data)
-						@if($match_id == $data->id)
-						<option value="{{$data->playerA_id}}" 
-						{{$player_id == $data->playerA_id ? 'selected' : '' }}	
-						>{{$data->playerAname}}</option>
-						<option value="{{$data->playerB_id}}"
-						{{$player_id == $data->playerB_id ? 'selected' : '' }}
-						>{{$data->playerBname}}</option>
-						@endif
-					@endforeach
-				</select>
-				</span> 
-			</div>
-		</div>
 		<!-- csrf -->
         {{csrf_field()}}
 		<div class="row cl">
@@ -73,43 +54,58 @@
 		</div>
 	</form>
 	<br>
-	<table class="table table-border table-bordered table-bg">
+	<table class="table table-border table-bordered table-bg " style="table-layout: fixed">
 		<thead>
 			<tr>
-				<th scope="col" colspan="9">比赛数据列表</th>
+				<th scope="col" colspan="11">比赛成绩列表</th>
 			</tr>
 			<tr class="text-c">
-				<th width="40">ID</th>
-				<th width="100">局数</th>
-				<th width="75">得分</th>
-				<th width="75">失分</th>
-				<th width="100">发接轮次</th>
-				<th width="100">拍数</th>
-				<th width="100">手段</th>
-				<th width="75">得失分</th>
-				<th width="100">操作</th>
+				<th width="30">序号</th>
+				<th width="100">比赛时间</th>
+				<th width="200">比赛名称</th>
+				<th width="100">比赛项目</th>
+				<th width="100">比赛阶段</th>
+				<th width="80">运动员A</th>
+				<th width="80">运动员B</th>
+				<th width="50">大比分</th>
+				<th width="50">小比分</th>
+				<th width="60">状态</th>
+				<th width="50">操作</th>
 			</tr>
 		</thead>
 		<tbody>
-			<?php if(isset($matchdatas)){ ?>
-			@foreach ($matchdatas as $key => $data)
+			@foreach ($matchinfos as $key => $data)
 			<tr class="text-c">
 				<td>{{ $key+1 }}</td>
-				<td>{{ $data->name }}</td>
-				<td>{{ $data->getscore }}</td>
-				<td>{{ $data->losescore }}</td>
-				<td>{{ $data->take_send }}</td>
-				<td>{{ $data->patnum }}</td>
-				<td>{{ $data->methods }}</td>
-				<td>{{ $data->get_lose }}</td>
+				<td>{{ $data->match_time }}</td>
+				<td>{{ $data->match_name }}</td>
+				<td>{{ $data->match_item }}</td>
+				<td>{{ $data->match_phase }}</td>
+				<td>{{ $data->playerAname }}</td>
+				<td>{{ $data->playerBname }}</td>
+				<td>{{ $data->bigscore }}</td>
+				<td style="width:100px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+					{{ $data->one }}&nbsp;{{ $data->two }}&nbsp;{{ $data->three }}&nbsp;
+					{{ $data->four }}&nbsp;{{ $data->five }}&nbsp;{{ $data->six }}&nbsp;
+					{{ $data->seven }}
+				</td>
+				<td>@if($data->status == 0) <span style="color: blue">已上线</span> 
+					@else <span style="color: red">未上线</span> @endif</td>
 				<td class="td-manage">
-					<a title="编辑" href="javascript:;" 
-					onclick="data_edit('编辑','{{route('matchdata_edit')}}','{{$data->id}}','600','400')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
-					<a title="删除" href="javascript:;" onclick="data_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+					@if($data->status == 0)
+					<span style="color: grey">上线</span>
+					<a href="javascript:;" onclick="downline('{{$data->id}}')" class="ml-5"
+						 style="text-decoration:none;"><span style="color: red">下线</span>
+					</a>
+					@else
+					<a href="javascript:;" onclick="upline('{{$data->id}}')" class="ml-5"
+					style="text-decoration:none;"><span style="color: blue">上线</span></a>
+					<span style="color: grey">下线</span>
+					@endif
+					
 				</td>
 			</tr>
 			@endforeach
-			<?php } ?>
 		</tbody>
 	</table>
 </div>
@@ -132,51 +128,51 @@
 	w		弹出层宽度（缺省调默认值）
 	h		弹出层高度（缺省调默认值）
 */
-
-function resets(){
-	location.href = location.href;
-}
-//表单提交验证
 function checkForm(){
 	var match = $.trim($('#match').val());
-	var player = $.trim($('#player').val());
 	if(match == 0){
 		layer.alert('请选择比赛名称',{icon:2});
-		return false;
-	}
-	if(player == 0){
-		layer.alert('请选择运动员',{icon:2});
 		return false;
 	}
 	return true;
 }
 
-/*比赛数据-删除*/
-function data_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
-		$.ajax({
-			type: 'get',
-			url: '{{route('matchdata_delete')}}?id='+id,
-			dataType: 'json',
-			success: function(data){
-				if(data.code == 0){
-					$(obj).parents("tr").remove();
-					layer.msg(data.msg,{icon:1,time:1000});
-				}else{
-					layer.msg(data.msg,{icon:2,time:1000});
-				}
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});		
+function resets(){
+	location.href = location.href;
+}
+
+/*比赛-上线*/
+function upline(id){
+	layer.confirm('确认要上线吗？',function(index){
+		$.get('{{route("matchscore_upline")}}?id='+id, function(data) {
+			if(data.code == 0){
+				layer.msg(data.msg,{icon:1,time:1000});
+				setTimeout(function(){
+					window.location.reload();
+				},1000);
+			}else{
+				layer.msg(data.msg,{icon:2,time:2000});
+			}
+		});
 	});
 }
 
-/*比赛数据-编辑*/
-function data_edit(title,url,id,w,h){
-	layer_show(title,url+'?id='+id,w,h);
+/*比赛-下线*/
+function downline(id){
+	layer.confirm('确认要下线吗？',function(index){
+		$.get('{{route("matchscore_downline")}}?id='+id, function(data) {
+			if(data.code == 0){
+				layer.msg(data.msg,{icon:1,time:1000});
+				setTimeout(function(){
+					window.location.reload();
+				},1000);
+			}else{
+				layer.msg(data.msg,{icon:2,time:2000});
+			}
+		});
+	});
 }
+
 
 // jQuery页面载入事件
 $(function(){
@@ -186,20 +182,6 @@ $(function(){
 		"columnDefs": [{ "orderable": false, "targets": 0 }],//禁止第1列排序
 		"order": [[ 0, "asc" ]]	//指定第2列排序，默认为降序排列
 	});
-
-	$('select[name="matchname"]').change(function(event) {
-		var _id = $(this).val();
-		var str = '';
-		@foreach($matchinfos as $key => $data)
-		if(_id == {{$data->id}}){
-			str += '<option value="{{$data->playerA_id}}">{{$data->playerAname}}</option>';
-			str += '<option value="{{$data->playerB_id}}">{{$data->playerBname}}</option>';
-		}
-		@endforeach
-		$('select[name=playername]').find('option:gt(0)').remove();
-		$('select[name="playername"]').append(str);
-	});
-
 });
 </script>
 </body>
