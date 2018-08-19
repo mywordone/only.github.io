@@ -79,18 +79,18 @@
 					<li><a data-href="{{ route('matchdata_index') }}" data-title="比赛数据列表" href="javascript:void(0)">比赛数据列表</a></li>
 			</ul>
 				<ul>
-					<li><a data-href="" data-title="比赛数据添加" href="javascript:void(0)">比赛数据添加</a></li>
+					<li><a data-href="{{route('matchdata_add')}}" data-title="比赛数据添加" href="javascript:void(0)">比赛数据添加</a></li>
 			</ul>
 			<ul>
-					<li><a data-href="{{ route('matchdata_upload') }}" data-title="比赛数据批量上传" href="javascript:void(0)">比赛数据批量上传</a></li>
+					<li><a data-href="{{ route('matchdata_import') }}" data-title="比赛数据批量上传" href="javascript:void(0)">比赛数据批量上传</a></li>
 			</ul>
 		</dd>
 	</dl>
 		<dl id="menu-picture">
-			<dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe613;</i> 比赛成绩管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="picture-list.html" data-title="图片管理" href="javascript:void(0)">图片管理</a></li>
+					<li><a data-href="{{route('matchscore_index')}}" data-title="比赛成绩" href="javascript:void(0)">比赛成绩</a></li>
 			</ul>
 		</dd>
 	</dl>
