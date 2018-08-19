@@ -12,8 +12,6 @@
 */
 
 
-
-
 //后台首页登录
 Route::get('admin/public/login', 'Admin\PublicController@login') -> name('admin_login');
 Route::any('admin/public/check', 'Admin\PublicController@check') -> name('admin_check');
@@ -55,10 +53,13 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('message/del', 'Admin\MessageController@del')->name('message_del');
     Route::any('message/add', 'Admin\MessageController@add')->name('message_add');
     Route::any('message/update', 'Admin\MessageController@update')->name('message_update');
+
+
 });
 
 
-
+//前端首页
+Route::get('home/index/index','Home\IndexController@index')->name('home_index');
 
 
 

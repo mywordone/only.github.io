@@ -43,6 +43,10 @@ class MessageController extends Controller
             $bid = DB::table('user')->where('user_name',$data['user_b'])->value('id');
             $data['user_a'] = $aid;
             $data['user_b'] = $bid;
+            $game_stage = DB::table('message')->where('id',$data['game_stage'])->value('game_stage');
+            $game_project = DB::table('message')->where('id',$data['game_project'])->value('game_project');
+            $data['game_stage'] = $game_stage;
+            $data['game_project'] = $game_project;
             //判断
             if (DB::table('message')->insert($data)){
                 $response = ['code' => '0', 'msg' => '添加成功'];
