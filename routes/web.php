@@ -58,6 +58,11 @@ Route::group(['prefix' => 'admin'], function (){
 });
 
 
+Route::get('home/index','Home\IndexController@index')->name('home_index');
+Route::get('home/show','Home\IndexController@show')->name('home_show');
+Route::get('home/list','Home\IndexController@list')->name('home_list');
+
+
 
 
 

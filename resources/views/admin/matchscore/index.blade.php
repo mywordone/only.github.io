@@ -85,9 +85,7 @@
 				<td>{{ $data->playerBname }}</td>
 				<td>{{ $data->bigscore }}</td>
 				<td style="width:100px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
-					{{ $data->one }}&nbsp;{{ $data->two }}&nbsp;{{ $data->three }}&nbsp;
-					{{ $data->four }}&nbsp;{{ $data->five }}&nbsp;{{ $data->six }}&nbsp;
-					{{ $data->seven }}
+					{{ $data->smallscore }}
 				</td>
 				<td>@if($data->status == 0) <span style="color: blue">已上线</span> 
 					@else <span style="color: red">未上线</span> @endif</td>
@@ -153,7 +151,7 @@ function upline(id){
 			}else{
 				layer.msg(data.msg,{icon:2,time:2000});
 			}
-		});
+		},'json');
 	});
 }
 
@@ -169,7 +167,7 @@ function downline(id){
 			}else{
 				layer.msg(data.msg,{icon:2,time:2000});
 			}
-		});
+		},'json');
 	});
 }
 

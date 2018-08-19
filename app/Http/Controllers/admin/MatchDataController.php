@@ -78,10 +78,13 @@ class MatchDataController extends Controller
 		        		'get_lose'	=>	$value[6],//得失分
 		        	]; 
 		        }
+                //设置原有数据为不可用
+                DB::table('matchdata')->where(['player_id' => $post['playername'],
+                'match_id' => $post['matchname']])->update(['status' => 1]);
 		        //插入数据库
 		        if(DB::table('matchdata')->insert($arr)){
 		        	$response = 0;
-		        	$this->manageExceldata($arr,$post['matchname']);
+		        	$this->manageExceldata($arr,$post);
 		        }else{
 		        	$response = 1;
 		        }
@@ -207,7 +210,7 @@ class MatchDataController extends Controller
     }
 
     //处理上传数据
-    public function manageExceldata($arr, $matchid){
+    public function manageExceldata($arr, $post){
   		$rounds = [];
     	foreach ($arr as $key => $value) {
     		if($value['round_id'] == 1){
@@ -239,22 +242,35 @@ class MatchDataController extends Controller
     			continue;
     		}
     	}
-    	$totalScore = $this->getTotalScore($rounds);
-    	$data['match_id'] = $matchid;
+         $totalScore = [];
+        //设置该场比赛成绩作废
+        DB::table('score')->where('match_id',$post['matchname'])->update(['status' => 1]);
+        //获取上传数据对应的运动员
+        // dd($post);
+        $match = DB::table('matchinfo')->where(['id' => $post['matchname'],'playerA_id' => $post['playername']])->get();
+        //判断是否是A运动员的成绩
+        if($match->first()){
+            //是这场比赛运动员A的比赛成绩 插入数据表
+            $totalScore = $this->getTotalScore($rounds);
+        }else{
+            //是这场比赛运动员B的比赛成绩 成绩取反 插入数据表
+            $totalScore = $this->getTotalScore($rounds,1);
+        }
+        //获取总比分信息
+    	$data['match_id'] = $post['matchname'];
     	$data['bigscore'] = $totalScore['big'];
-    	$arr_column = ['one','two','three','four','five','six','seven'];
-    	foreach ($totalScore['small'] as $key => $value) {
-    		$data[$arr_column[$key]] = $value;
-    	}
+        $data['smallscore'] = implode(' ', $totalScore['small']);
     	DB::table('score')->insert($data);
     }
 
     //计算比分
-    private function getTotalScore($arr){
+    private function getTotalScore($arr,$flag = 0){
     	$scoreinfos = [];
     	foreach ($arr as $key => $value) {
-    		$scoreinfos[] = $this->getSmallScore($value);
+    		$scoreinfos[] = $this->getSmallScore($value,$flag);
     	}
+        // echo $flag;
+        // dd($scoreinfos);
     	$yCount = 0;
     	$nCount = 0;
     	$smallScore = [];
@@ -262,22 +278,33 @@ class MatchDataController extends Controller
     		$value[1] == 'y' ? $yCount++ : $nCount++;
     		$smallScore[] = $value[0];
     	}
-    	$totalScore['big'] = $yCount.':'.$nCount;
+        if($flag == 1){
+            $totalScore['big'] = $nCount.':'.$yCount;
+        }else{
+            $totalScore['big'] = $yCount.':'.$nCount;
+        }
+    	
     	$totalScore['small'] = $smallScore;
     	return $totalScore;
     }
 
     //获取小比分信息
-    private function getSmallScore($arr){
+    private function getSmallScore($arr, $flag = 0){
     	$getCount = 0;
     	$loseCount = 0;
     	$arr = array_count_values($arr);
-    	$smlScore[] = $arr['得'].'-'.$arr['失'];
+        if($flag == 1){
+            $smlScore[] = $arr['失'].'-'.$arr['得'];
+        }else{
+            $smlScore[] = $arr['得'].'-'.$arr['失'];
+        }
     	if($arr['得'] > $arr['失']){
     		$smlScore[] = 'y';
     	}else{
     		$smlScore[] = 'n';
     	}
+
     	return $smlScore;
     }
+
 }
