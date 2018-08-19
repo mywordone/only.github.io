@@ -16,7 +16,7 @@
 
 //后台首页登录
 Route::get('admin/public/login', 'Admin\PublicController@login') -> name('admin_login');
-Route::get('admin/public/check', 'Admin\PublicController@check') -> name('admin_check');
+Route::any('admin/public/check', 'Admin\PublicController@check') -> name('admin_check');
 
 Route::group(['prefix' => 'admin'], function (){
 	//比赛数据导入
@@ -43,6 +43,18 @@ Route::group(['prefix' => 'admin'], function (){
 	Route::get('index/index','admin\IndexController@index')->name('index_index');
     Route::get('index/welcome','admin\IndexController@welcome')->name('index_welcome');
 
+    //运动员列表和添加
+    Route::get('player/index','Admin\PlayerController@index')->name('player_index');
+    Route::any('player/add','Admin\PlayerController@add')->name('player_add');
+    Route::any('player/upload','Admin\PlayerController@upload')->name('player_upload');
+    Route::any('player/update','Admin\PlayerController@update')->name('player_update');
+    Route::get('player/del','Admin\PlayerController@del')->name('player_delete');
+
+    //比赛信息列表
+    Route::get('message/index', 'Admin\MessageController@index')->name('message_index');
+    Route::get('message/del', 'Admin\MessageController@del')->name('message_del');
+    Route::any('message/add', 'Admin\MessageController@add')->name('message_add');
+    Route::any('message/update', 'Admin\MessageController@update')->name('message_update');
 });
 
 

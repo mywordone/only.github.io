@@ -83,6 +83,8 @@
 			</ul>
 			<ul>
 					<li><a data-href="{{ route('matchdata_import') }}" data-title="比赛数据批量上传" href="javascript:void(0)">比赛数据批量上传</a></li>
+					<li><a data-href="" data-title="比赛数据批量上传" href="javascript:void(0)">比赛数据批量上传</a></li>
+
 			</ul>
 		</dd>
 	</dl>
@@ -114,16 +116,10 @@
 		</dd>
 	</dl>
 		<dl id="menu-member">
-			<dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe60d;</i> 运动员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="member-list.html" data-title="会员列表" href="javascript:;">会员列表</a></li>
-					<li><a data-href="member-del.html" data-title="删除的会员" href="javascript:;">删除的会员</a></li>
-					<li><a data-href="member-level.html" data-title="等级管理" href="javascript:;">等级管理</a></li>
-					<li><a data-href="member-scoreoperation.html" data-title="积分管理" href="javascript:;">积分管理</a></li>
-					<li><a data-href="member-record-browse.html" data-title="浏览记录" href="javascript:void(0)">浏览记录</a></li>
-					<li><a data-href="member-record-download.html" data-title="下载记录" href="javascript:void(0)">下载记录</a></li>
-					<li><a data-href="member-record-share.html" data-title="分享记录" href="javascript:void(0)">分享记录</a></li>
+					<li><a data-href="{{ route('player_index') }}" data-title="运动员列表" href="javascript:;">运动员列表</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -138,11 +134,11 @@
 		</dd>
 	</dl>
 		<dl id="menu-tongji">
-			<dt><i class="Hui-iconfont">&#xe61a;</i> 系统统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe61a;</i> 比赛信息<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="charts-1.html" data-title="折线图" href="javascript:void(0)">折线图</a></li>
-					<li><a data-href="charts-2.html" data-title="时间轴折线图" href="javascript:void(0)">时间轴折线图</a></li>
+					<li><a data-href="{{ route('message_index') }}" data-title="比赛列表" href="javascript:void(0)">比赛列表</a></li>
+					<li><a data-href="" data-title="时间轴折线图" href="javascript:void(0)">时间轴折线图</a></li>
 					<li><a data-href="charts-3.html" data-title="区域图" href="javascript:void(0)">区域图</a></li>
 					<li><a data-href="charts-4.html" data-title="柱状图" href="javascript:void(0)">柱状图</a></li>
 					<li><a data-href="charts-5.html" data-title="饼状图" href="javascript:void(0)">饼状图</a></li>

@@ -21,16 +21,13 @@ class PublicController extends Controller
         ]);
 
         $data = $request->only(['admin','password']);
-        $bool = DB::table('admin')->where('admin',$data['admin'])->where('password',$data['password'])->get();
-//        dd($bool);
+        $bool = DB::table('admin')->where('name',$data['admin'])->where('pwd',$data['password'])->get();
         //认证
         if ($bool){
-//            dd('123');
             //认证通过
             return redirect( route('index_index') );
         }else{
             //认证不通过
-//            dd('456');
             return redirect(route('admin_login'));
         }
 
