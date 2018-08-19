@@ -35,7 +35,7 @@
     <article class="page-container">
         <form action="" method="post" class="form form-horizontal" id="form-member-add">
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>比赛名称：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input type="text" class="input-text" value="" placeholder="比赛名称" id="game_name" name="game_name">
                 </div>
@@ -55,33 +55,35 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>比赛阶段：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" name="game_stage" id="game_stage">
+                    <select class="select" size="1" name="game_stage" id="game_stage">
+                        <option value="" selected>--比赛阶段--</option>
+                        @foreach($game as $v)
+                        <option value="{{ $v->id }}">{{ $v->game_stage }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">运动员：</label>
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>运动员A：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                	<span class="select-box" style="width: 150px;">
-						<select class="select" size="1" name="country_id">
-							<option value="" selected>--运动员A--</option>
-
-                                <option value=""></option>
-
-						</select>
-					</span>
-                    <span class="select-box" style="width: 150px;">
-						<select class="select" size="1" name="province_id">
-							<option value="" selected>--运动员B--</option>
-                            <!-- 数据追加的位置 -->
-
-						</select>
-					</span>
+                    <input type="text" class="input-text" name="user_a" id="user_a">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>运动员B：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" name="user_b" id="user_b">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>比赛项目：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" name="game_project" id="game_project">
+                    <select class="select" size="1" name="game_project" id="game_project">
+                        <option value="" selected>--比赛阶段--</option>
+                        @foreach($game as $v)
+                            <option value="{{ $v->id }}">{{ $v->game_project }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="row cl">
@@ -123,6 +125,29 @@
     {{--<script type="text/javascript" src="/admin/webuploader/0.1.5/webuploader.js"></script>--}}
     <script type="text/javascript">
     $(function() {
+
+        {{--$('select[name=country_id]').change(function(){--}}
+            {{--// 获取当前选中的值--}}
+            {{--var _id = $(this).val();--}}
+            {{--// 发送ajax请求--}}
+            {{--$.get("{{route('member_getAreaById')}}",{id: _id},function(data){--}}
+                {{--// 循环遍历--}}
+                {{--// 初始化一个空的变量--}}
+                {{--var _options = '';--}}
+                {{--$.each(data,function(index,el){--}}
+                    {{--// console.log(el);--}}
+                    {{--_options += "<option value='" + el.id + "'>" + el.area + "</option>";--}}
+                {{--});--}}
+                {{--// console.log(_options);--}}
+                {{--// 先清空原有的数据（option）--}}
+                {{--$('select[name=province_id]').find('option:gt(0)').remove();--}}
+                {{--$('select[name=city_id]').find('option:gt(0)').remove();--}}
+                {{--$('select[name=county_id]').find('option:gt(0)').remove();--}}
+                {{--// 将拼凑好的option追加到页面中去（province_id）--}}
+                {{--$('select[name=province_id]').append(_options);--}}
+            {{--},'json');--}}
+        {{--});--}}
+
         $("#form-member-add").validate({
             rules: {
                 username: {

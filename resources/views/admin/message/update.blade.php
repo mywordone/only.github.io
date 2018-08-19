@@ -35,7 +35,7 @@
     <article class="page-container">
         <form action="" method="post" class="form form-horizontal" id="form-member-add">
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>比赛名称：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input type="text" class="input-text" value="{{ $v->game_name }}" placeholder="比赛名称" id="game_name" name="game_name">
                 </div>
@@ -59,23 +59,15 @@
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">运动员：</label>
+                <label class="form-label col-xs-4 col-sm-3">运动员A：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                	<span class="select-box" style="width: 150px;">
-						<select class="select" size="1" name="country_id">
-							<option value="" selected>--运动员A--</option>
-
-                            <option value="{{ $v->game_stage }}"></option>
-
-						</select>
-					</span>
-                    <span class="select-box" style="width: 150px;">
-						<select class="select" size="1" name="province_id">
-							<option value="" selected>--运动员B--</option>
-                            <!-- 数据追加的位置 -->
-                            <option value="{{ $v->game_stage }}"></option>
-						</select>
-					</span>
+                    <input type="text" class="input-text" value="{{ $aname }}" name="user_a" id="user_a">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3">运动员B：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="{{ $bname }}" name="user_b" id="user_b">
                 </div>
             </div>
             <div class="row cl">

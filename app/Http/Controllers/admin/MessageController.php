@@ -39,6 +39,10 @@ class MessageController extends Controller
             //post
             $data = $request->all();//获取表单数据
             unset($data['_token']);//去除_token值
+            $aid = DB::table('user')->where('user_name',$data['user_a'])->value('id');
+            $bid = DB::table('user')->where('user_name',$data['user_b'])->value('id');
+            $data['user_a'] = $aid;
+            $data['user_b'] = $bid;
             //判断
             if (DB::table('message')->insert($data)){
                 $response = ['code' => '0', 'msg' => '添加成功'];
@@ -49,7 +53,8 @@ class MessageController extends Controller
         }else{
             //get请求
             $data = DB::table('user')->select('user_name')->get();
-            return view('admin.message.add',compact('data'));
+            $game = DB::table('message')->get();
+            return view('admin.message.add',compact('data','game'));
         }
     }
 
@@ -60,10 +65,14 @@ class MessageController extends Controller
         $id = $request -> id;
         if ($request->method() == 'POST'){
             //post
-            $res = $request->all();
-            unset($res['_token']);
+            $data = $request->all();
+            unset($data['_token']);
+            $aid = DB::table('user')->where('user_name',$data['user_a'])->value('id');
+            $bid = DB::table('user')->where('user_name',$data['user_b'])->value('id');
+            $data['user_a'] = $aid;
+            $data['user_b'] = $bid;
             // dd(DB::table('message')->where('id',$id)->update($res));
-            if (DB::table('message')->where('id',$id)->update($res)){
+            if (DB::table('message')->where('id',$id)->update($data)){
                 $response = ['code'=>'0', 'msg'=> '更新成功'];
             }else{
                 $response = ['code'=>'1', 'msg'=> '更新失败'];
@@ -73,7 +82,11 @@ class MessageController extends Controller
             //get请求
             $data = DB::table('message')->where('id', $id)->get();
             foreach ($data as $v) {
-                return view('admin.message.update', compact('v'));
+                $a_id = $v->user_a;
+                $b_id = $v->user_b;
+                $aname = DB::table('user')->where('id',$a_id)->value('user_name');
+                $bname = DB::table('user')->where('id',$b_id)->value('user_name');
+                return view('admin.message.update', compact('v','aname','bname'));
             }
         }
     }
